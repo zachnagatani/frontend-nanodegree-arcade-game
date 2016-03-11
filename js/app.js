@@ -1,11 +1,18 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+
+    // Sets initial location for enemies
+    this.x = x;
+    this.y = y;
+
+    // Sets the speed for each enemy object
+    // this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -14,6 +21,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x++ * dt;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -25,11 +33,87 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+var Player = function(x, y) {
+
+    // The image/sprite for our player, this uses
+    // a helper we've provided to easily load images
+    this.sprite = 'images/char-boy.png';
+
+    // Sets the players initial location
+    this.x = x;
+    this.y = y;
+
+    // Sets the players speed
+    // this.speed = speed;
+
+};
+
+// Update the player's position, required method for game
+// Parameter: dt, a time delta between ticks
+Player.prototype.update = function(dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+    this.x * dt;
+};
+
+// Draw the PLAYER on the screen, required method for game
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+// Control the input of the user
+Player.prototype.handleInput = function(e) {
+
+    var poopKey = function(event){
+
+
+        var startLoc = this.loc;
+        var key_press = event.keyCode;
+
+        if (key_press === 37){
+            alert(key_press);
+        }
+
+        if (key_press === 38){
+            alert(key_press);
+        }
+
+        if (key_press === 39){
+            startLoc +=2;
+            this.style.left = this + "px";
+        }
+
+        if (key_press === 40){
+            alert(key_press);
+        }
+
+   };
+
+   document.onkeydown = poopKey;
+
+    // Pseudocode...
+    // When any key is pressed:
+    // 1. Find out which key was pressed
+    // 2. If that key was the left arrow, move the character left
+    // 3. If that key was the right arrow, move the character right
+    // 4. If that key was the down arrow, move the character down
+    // 5. If that key was the up arrow, move the character up
+};
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+var player = new Player(200, 400);
+
+var allEnemies = [
+    enemy1 = new Enemy(50, 50),
+    enemy2 = new Enemy(30, 200),
+    enemy3 = new Enemy(400, 125),
+    enemy4 = new Enemy(200, 300),
+];
 
 
 // This listens for key presses and sends the keys to your
