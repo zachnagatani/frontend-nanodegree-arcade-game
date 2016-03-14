@@ -99,6 +99,7 @@ var Engine = (function(global) {
 
     // Handles all collisions besides ones between player and enemies
     function checkCollisions() {
+        // Call the rock.collide method
         allRocks.forEach(function(rock){
             rock.collide();
         });
@@ -183,7 +184,8 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-boy.png',
-        'images/Rock.png'
+        'images/Rock.png',
+        'images/char-cat-girl.png'
     ]);
     Resources.onReady(init);
 

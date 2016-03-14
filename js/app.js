@@ -99,7 +99,7 @@ var Player = function(x, y) {
 
     // The image/sprite for our player, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/char-boy.png';
+    this.sprite = 'images/char-cat-girl.png';
 
     // Sets the player's initial location
     // The x parameter gets passed to .render, which uses it to set
@@ -201,12 +201,6 @@ Rock.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var allRocks = [
-    rock1 = new Rock(100, 272),
-    rock2 = new Rock(300, 150),
-];
-
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Create and store the instances of Enemy in an array, passing in the desired
@@ -216,6 +210,12 @@ var allEnemies = [
     enemy2 = new Enemy(30, 200, 0, 100),
     enemy3 = new Enemy(20, 125, 150),
     // enemy4 = new Enemy(200, 40, 0, 400),
+];
+
+// Instantiate and store Rock instances and pass their x and y paramaters
+var allRocks = [
+    rock1 = new Rock(100, 272),
+    rock2 = new Rock(300, 150),
 ];
 
 // Place the player object in a variable called player
