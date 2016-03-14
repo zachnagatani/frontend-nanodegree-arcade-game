@@ -34,16 +34,30 @@ Enemy.prototype.update = function(dt) {
     // with each instance) to it. This is multiplied by dt
     this.x += this.speedX * dt;
 
+
+    // If a speedY parameter was passed into the Enemy instance,
+    // Move the Enemy instance down the y-axis
     if (this.speedY != null) {
         this.y += this.speedY * dt;
+
+        if (this.x < player.x + 66 &&
+            this.x + 66 > player.x &&
+            this.y < player.y + 95 &&
+            66 + this.y > player.y) {
+
+            player.x = 205;
+            player.y = 350;
+            this.y = 40;
+        }
     }
 
-    // Reverts the position of each instance of Enemy when
+    // Reverts the position x-axis based Enemy instances when
     // reaching the end of the canvas
     if (this.x >= 400) {
         this.x = 0;
     }
 
+    // Reverts the position of y-axis based Enemy instances
     if (this.y >= 400) {
         this.y = 40;
     }
@@ -52,7 +66,8 @@ Enemy.prototype.update = function(dt) {
     // of the Enemy class upon collision. Adds the specific
     // width and height of player and enemy sprites to calculate
     // an accurate collision
-    if (this.x < player.x + 66 &&
+    if (this.speedX != 0 &&
+        this.x < player.x + 66 &&
         this.x + 66 > player.x &&
         this.y < player.y + 95 &&
         66 + this.y > player.y) {
@@ -195,8 +210,8 @@ var player = new Player(205, 350);
 var allEnemies = [
     enemy1 = new Enemy(100, 50, 50),
     enemy2 = new Enemy(30, 200, 0, 100),
-    enemy3 = new Enemy(20, 125, 300),
-    enemy4 = new Enemy(200, 40, 0, 400),
+    enemy3 = new Enemy(20, 125, 200),
+    // enemy4 = new Enemy(200, 40, 0, 400),
 ];
 
 
