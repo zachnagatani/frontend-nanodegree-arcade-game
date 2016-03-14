@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(x, y, speed) {
+var Enemy = function(x, y, speedX, speedY) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -18,7 +18,8 @@ var Enemy = function(x, y, speed) {
     // Sets the speed for each instance of the Enemy class
     // Stores the speed parameter in this.speed
     // to be used in our .update method
-    this.speed = speed;
+    this.speedX = speedX;
+    this.speedY = speedY;
 };
 
 // Update the enemy's position, required method for game
@@ -31,12 +32,20 @@ Enemy.prototype.update = function(dt) {
     // Takes the x-coordinate of each instance of Enemy
     // on the canvas, then adds the speed parameter (passed in
     // with each instance) to it. This is multiplied by dt
-    this.x += this.speed * dt;
+    this.x += this.speedX * dt;
+
+    if (this.speedY != null) {
+        this.y += this.speedY * dt;
+    }
 
     // Reverts the position of each instance of Enemy when
     // reaching the end of the canvas
     if (this.x >= 400) {
         this.x = 0;
+    }
+
+    if (this.y >= 400) {
+        this.y = 40;
     }
 
     // Reverts the player character and the specific instance
@@ -146,6 +155,33 @@ Player.prototype.handleInput = function(allowedKeys) {
         }
 };
 
+var Rock = function(x, y){
+
+    this.sprite = 'images/Rock.png';
+
+    this.x = x;
+    this.y = y;
+};
+
+Rock.prototype.collide = function(){
+    if (this.x < player.x + 66 &&
+        this.x + 50 > player.x &&
+        this.y < player.y + 95 &&
+        50 + this.y > player.y) {
+        player.x = 205;
+        player.y = 350;
+    }
+};
+
+Rock.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+var allRocks = [
+    rock1 = new Rock(100, 272),
+    rock2 = new Rock(300, 150),
+];
+
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -157,9 +193,10 @@ var player = new Player(205, 350);
 // Create and store the instances of Enemy in an array, passing in the desired
 // x and y coordinates, as well as desired speed as parameters
 var allEnemies = [
-    enemy1 = new Enemy(100, 50, 200),
-    enemy2 = new Enemy(30, 200, 300),
-    enemy3 = new Enemy(20, 125, 70),
+    enemy1 = new Enemy(100, 50, 50),
+    enemy2 = new Enemy(30, 200, 0, 100),
+    enemy3 = new Enemy(20, 125, 300),
+    enemy4 = new Enemy(200, 40, 0, 400),
 ];
 
 
