@@ -30,7 +30,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
 
     // If the speedX paramater is not 0, run this if statement
-    if (this.speedX != 0) {
+    if (this.speedX !== 0) {
 
             // Takes the x-coordinate of each instance of Enemy
             // on the canvas, then adds the speed parameter (passed in
@@ -60,7 +60,7 @@ Enemy.prototype.update = function(dt) {
     }
 
     // If there is a speedY-paramater passed into the instance, run this if statement
-    if (this.speedY != null) {
+    if (this.speedY !== undefined) {
 
         // Move the Enemy instance down the y-axis
         this.y += this.speedY * dt;
@@ -152,7 +152,7 @@ Player.prototype.handleInput = function(allowedKeys) {
             // Reset the location of each instance of Enemy
             for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
                 allEnemies[indexCount].x = 0;
-            };
+            }
 
             // Say something stupid.
             alert("Congrats! You drowned.");
