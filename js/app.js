@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function(x, y, speed) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -8,12 +8,17 @@ var Enemy = function(x, y) {
     this.sprite = 'images/enemy-bug.png';
 
     // Sets initial location for enemies
+    // The x parameter gets passed to .render, which uses it to set
+    // the x-coordinate of the enemy object on the canvas
     this.x = x;
+    // The y parameter gets passed to our .render method, which uses it to set
+    // the y-coordinate of the enemy object on the canvas
     this.y = y;
-    // this.speed = speed;
 
-    // Sets the speed for each enemy object
-    // this.speed = speed;
+    // Sets the speed for each instance of the Enemy class
+    // Stores the speed parameter in this.speed
+    // to be used in our .update method
+    this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -22,18 +27,29 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any  movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x++ * dt;
 
+    // Takes the x-coordinate of each instance of Enemy
+    // on the canvas, then adds the speed parameter (passed in
+    // with each instance) to it. This is multiplied by dt
+    this.x += this.speed * dt;
+
+    // Reverts the position of each instance of Enemy when
+    // reaching the end of the canvas
     if (this.x >= 400) {
         this.x = 0;
     }
 
+    // Reverts the player character and the specific instance
+    // of the Enemy class upon collision. Adds the specific
+    // width and height of player and enemy sprites to calculate
+    // an accurate collision
     if (this.x < player.x + 66 &&
         this.x + 66 > player.x &&
         this.y < player.y + 95 &&
         66 + this.y > player.y) {
         player.x = 205;
         player.y = 350;
+        this.x = 0;
     }
 };
 
@@ -52,13 +68,13 @@ var Player = function(x, y) {
     // a helper we've provided to easily load images
     this.sprite = 'images/char-boy.png';
 
-    // Sets the players initial location
+    // Sets the player's initial location
+    // The x parameter gets passed to .render, which uses it to set
+    // the x-coordinate of the player object on the canvas
     this.x = x;
+    // The y parameter gets passed to .render, which uses it to set
+    // the y-coordinate of the player object on the canvas
     this.y = y;
-
-    // Sets the players speed
-    // this.speed = speed;
-
 };
 
 // Update the player's position, required method for game
@@ -77,44 +93,57 @@ Player.prototype.render = function() {
 // Control the input of the user
 Player.prototype.handleInput = function(allowedKeys) {
 
+
+        // Store the key-code of the keyup event in a variable
         var key_press = event.keyCode;
 
+
+        // Reset the player's location on the x-axis if moved
+        // off the canvas
         if (this.x < 0 || this.x > 400) {
             this.x = 205;
         }
 
+        // Reset the player's location on the y-axis if moved
+        // off the bottom of the canvas
         if (this.y > 400) {
             this.y = 350;
         }
 
+        // Reset the whole game if the player reaches the water
         if (this.y < 40) {
+            // Reset the player's location
             this.y = 350;
             this.x = 205;
+
+            // Reset the location of each instance of Enemy
+            for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
+                allEnemies[indexCount].x = 0;
+            };
+
+            // Say something stupid.
+            alert("Congrats! You drowned.");
         }
 
+        // Move the character left with a left-arrow keyup
         if (key_press === 37){
-            this.x = this.x - 30;
+            this.x = this.x - 70;
         }
 
+        // Move the character up with an up-arrow keyup
         if (key_press === 38){
-            this.y = this.y - 30;
+            this.y = this.y - 70;
         }
 
+        // Move the character right with a right-arrow keyup
         if (key_press === 39){
-            this.x = this.x + 30;
+            this.x = this.x + 70;
         }
 
+        // Move the character down with a down-arrow keyup
         if (key_press === 40){
-            this.y = this.y + 30;
+            this.y = this.y + 70;
         }
-
-    // Pseudocode...
-    // When any key is pressed:
-    // 1. Find out which key was pressed
-    // 2. If that key was the left arrow, move the character left
-    // 3. If that key was the right arrow, move the character right
-    // 4. If that key was the down arrow, move the character down
-    // 5. If that key was the up arrow, move the character up
 };
 
 
@@ -122,12 +151,15 @@ Player.prototype.handleInput = function(allowedKeys) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+// Create the player, passing in the desired x and y coordinates as paramaters
 var player = new Player(205, 350);
 
+// Create and store the instances of Enemy in an array, passing in the desired
+// x and y coordinates, as well as desired speed as parameters
 var allEnemies = [
-    enemy1 = new Enemy(100, 50),
-    enemy2 = new Enemy(30, 200),
-    enemy3 = new Enemy(20, 125),
+    enemy1 = new Enemy(100, 50, 200),
+    enemy2 = new Enemy(30, 200, 300),
+    enemy3 = new Enemy(20, 125, 70),
 ];
 
 
