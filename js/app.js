@@ -10,6 +10,7 @@ var Enemy = function(x, y) {
     // Sets initial location for enemies
     this.x = x;
     this.y = y;
+    // this.speed = speed;
 
     // Sets the speed for each enemy object
     // this.speed = speed;
@@ -22,6 +23,18 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x++ * dt;
+
+    if (this.x >= 400) {
+        this.x = 0;
+    }
+
+    if (this.x < player.x + 66 &&
+        this.x + 66 > player.x &&
+        this.y < player.y + 95 &&
+        66 + this.y > player.y) {
+        player.x = 205;
+        player.y = 350;
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -54,7 +67,6 @@ Player.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x * dt;
 };
 
 // Draw the PLAYER on the screen, required method for game
@@ -113,10 +125,9 @@ Player.prototype.handleInput = function(allowedKeys) {
 var player = new Player(205, 350);
 
 var allEnemies = [
-    enemy1 = new Enemy(50, 50),
+    enemy1 = new Enemy(100, 50),
     enemy2 = new Enemy(30, 200),
-    enemy3 = new Enemy(400, 125),
-    enemy4 = new Enemy(200, 300),
+    enemy3 = new Enemy(20, 125),
 ];
 
 
