@@ -18,7 +18,7 @@ var Enemy = function(x, y) {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
+    // You should multiply any  movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x++ * dt;
@@ -63,34 +63,38 @@ Player.prototype.render = function() {
 };
 
 // Control the input of the user
-Player.prototype.handleInput = function(e) {
+Player.prototype.handleInput = function(allowedKeys) {
 
-    var poopKey = function(event){
-
-
-        var startLoc = this.loc;
         var key_press = event.keyCode;
 
+        if (this.x < 0 || this.x > 400) {
+            this.x = 205;
+        }
+
+        if (this.y > 400) {
+            this.y = 350;
+        }
+
+        if (this.y < 40) {
+            this.y = 350;
+            this.x = 205;
+        }
+
         if (key_press === 37){
-            alert(key_press);
+            this.x = this.x - 30;
         }
 
         if (key_press === 38){
-            alert(key_press);
+            this.y = this.y - 30;
         }
 
         if (key_press === 39){
-            startLoc +=2;
-            this.style.left = this + "px";
+            this.x = this.x + 30;
         }
 
         if (key_press === 40){
-            alert(key_press);
+            this.y = this.y + 30;
         }
-
-   };
-
-   document.onkeydown = poopKey;
 
     // Pseudocode...
     // When any key is pressed:
@@ -106,7 +110,7 @@ Player.prototype.handleInput = function(e) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var player = new Player(200, 400);
+var player = new Player(205, 350);
 
 var allEnemies = [
     enemy1 = new Enemy(50, 50),
