@@ -134,13 +134,13 @@ Player.prototype.handleInput = function(allowedKeys) {
 
         // Reset the player's location on the x-axis if moved
         // off the canvas
-        if (this.x < 0 || this.x > 400) {
+        if (this.x + 5 < 0 || this.x >= 450) {
             this.x = 205;
         }
 
         // Reset the player's location on the y-axis if moved
         // off the bottom of the canvas
-        if (this.y > 400) {
+        if (this.y + 95 > 400) {
             this.y = 350;
         }
 
@@ -264,7 +264,6 @@ var allEnemies = [
     enemy3 = new Enemy(20, 125, 150),
     enemy4 = new Enemy(0, 250, 400),
     enemy5 = new Enemy(375, 40, 0, 400),
-    // enemy4 = new Enemy(200, 40, 0, 400),
 ];
 
 // Instantiate and store Rock instances and pass their x and y paramaters
