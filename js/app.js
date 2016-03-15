@@ -96,12 +96,8 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
-var Entity = function(x, y, sprite) {
-    // The image/sprite for our player, this uses
-    // a helper we've provided to easily load images
-    this.sprite = sprite;
-
-    // Sets the player's initial location
+var Entity = function(x, y) {
+    // Sets the entity's initial location
     // The x parameter gets passed to .render, which uses it to set
     // the x-coordinate of the player object on the canvas
     this.x = x;
@@ -121,14 +117,12 @@ var Player = function(x, y) {
     // a helper we've provided to easily load images
     this.sprite = 'images/char-cat-girl.png';
 
-    // Sets the player's initial location
-    // The x parameter gets passed to .render, which uses it to set
-    // the x-coordinate of the player object on the canvas
-    this.x = x;
-    // The y parameter gets passed to .render, which uses it to set
-    // the y-coordinate of the player object on the canvas
-    this.y = y;
+    Entity.call(this, x, y);
 };
+
+Player.prototype = Object.create(Entity.prototype);
+
+Player.prototype.constructor = Player;
 
 // Update the player's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -136,11 +130,6 @@ Player.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-};
-
-// Draw the PLAYER on the screen, required method for game
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 // Control the input of the user
@@ -209,9 +198,12 @@ var Rock = function(x, y){
     this.sprite = 'images/Rock.png';
 
     // Location parameters for each rock
-    this.x = x;
-    this.y = y;
+    Entity.call(this, x, y);
 };
+
+Rock.prototype = Object.create(Entity.prototype);
+
+Rock.prototype.constructor = Rock;
 
 Rock.prototype.collide = function(){
 
@@ -225,10 +217,6 @@ Rock.prototype.collide = function(){
     }
 };
 
-Rock.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
 
 // Constructor for the Star class
 var Star = function(x, y) {
@@ -236,15 +224,13 @@ var Star = function(x, y) {
     // Set the image for each star
     this.sprite = 'images/Star.png';
 
-    // Parameters for location of each star
-    this.x = x;
-    this.y = y;
+    Entity.call(this, x, y);
 
 };
 
-Star.prototype.render = function () {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
+Star.prototype = Object.create(Entity.prototype);
+
+Star.prototype.constructor = Star;
 
 Star.prototype.collide = function () {
 
