@@ -136,7 +136,7 @@ Player.prototype.handleInput = function(allowedKeys) {
 
         // Reset the player's location on the x-axis if moved
         // off the canvas
-        if (this.x + 5 < 0 || this.x > 410) {
+        if (this.x - 66 < 0 || this.x + 100 > 505) {
             this.x = 205;
         }
 
@@ -228,18 +228,6 @@ Star.prototype.render = function () {
 };
 
 Star.prototype.collide = function () {
-    // TODO: Loop through allStars array and erase/move corresponding enemy
-    // for (indexCount = 0; indexCount < allStars.length; indexCount++ ){
-    //     var removeEnemy = allEnemies[indexCount];
-    //     if (this.x < player.x + 66 &&
-    //         this.x + 40 > player.x &&
-    //         this.y < player.y + 95 &&
-    //         40 + this.y > player.y) {
-
-    //         removeEnemy.x = -400;
-
-    //     }
-    // }
 
     // Upon collision with a star, remove the 4th and 5th instance
     // of the Enemy class
@@ -248,8 +236,8 @@ Star.prototype.collide = function () {
             this.x + 40 > player.x &&
             this.y < player.y + 95 &&
             40 + this.y > player.y) {
-            allEnemies[3].y = -400;
-            allEnemies[4].x = -400;
+            // allEnemies[3].y = -400;
+            // allEnemies[4].x = -400;
 
         }
     }
@@ -264,8 +252,8 @@ var allEnemies = [
     enemy1 = new Enemy(100, 50, 50),
     enemy2 = new Enemy(30, 40, 0, 100),
     enemy3 = new Enemy(20, 125, 150),
-    enemy4 = new Enemy(0, 250, 400),
-    enemy5 = new Enemy(375, 40, 0, 400),
+    // enemy4 = new Enemy(0, 250, 400),
+    // enemy5 = new Enemy(375, 40, 0, 400),
 ];
 
 // Instantiate and store Rock instances and pass their x and y paramaters
