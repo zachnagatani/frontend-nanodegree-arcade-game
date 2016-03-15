@@ -1,6 +1,18 @@
-frontend-nanodegree-arcade-game
-===============================
+Arcade Game!
 
-Students should use this [rubric](https://www.udacity.com/course/viewer/#!/c-nd001/l-2696458597/m-2687128535) for self-checking their submission.
+<!-- Getting Started -->
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+To load the game, simply open index.html (or go to http://zachnagatani.github.io/frontend-nanodegree-arcade-game/).
+
+<!-- Gameplay -->
+
+1. Use the arrow keys to navigate your character (the cat girl). Up will move you up, left will move you left, right will move you right, and down will move you... down!
+
+2. Avoid the bugs (if you touch them, she gets grossed out and teleports all the back to the beginning).
+
+3. Avoid the rocks, too. They may not have hands, but they can be pushy.
+
+4. Stars are friendly, though. I mean, in real life, if you touched a star, you'd be dead before you even had a chance to. But this isn't real life. So touch those stars, and make (fake)life a little easier on yourself.
+
+<!-- How to win -->
+Get to the water and you win! (Sorta? You'll see)...
