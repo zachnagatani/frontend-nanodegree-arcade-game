@@ -130,11 +130,13 @@ Player.prototype.handleInput = function(allowedKeys) {
 
         // Store the key-code of the keyup event in a variable
         var key_press = event.keyCode;
+        var tileWidth = 101;
+        var tileHeight = 83;
 
 
         // Reset the player's location on the x-axis if moved
         // off the canvas
-        if (this.x + 5 < 0 || this.x >= 450) {
+        if (this.x + 5 < 0 || this.x > 410) {
             this.x = 205;
         }
 
@@ -161,22 +163,22 @@ Player.prototype.handleInput = function(allowedKeys) {
 
         // Move the character left with a left-arrow keyup
         if (key_press === 37){
-            this.x = this.x - 70;
+            this.x = this.x - tileWidth;
         }
 
         // Move the character up with an up-arrow keyup
         if (key_press === 38){
-            this.y = this.y - 70;
+            this.y = this.y - tileHeight;
         }
 
         // Move the character right with a right-arrow keyup
         if (key_press === 39){
-            this.x = this.x + 70;
+            this.x = this.x + tileWidth;
         }
 
         // Move the character down with a down-arrow keyup
         if (key_press === 40){
-            this.y = this.y + 70;
+            this.y = this.y + tileHeight;
         }
 };
 
