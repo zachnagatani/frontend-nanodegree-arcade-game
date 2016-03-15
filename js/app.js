@@ -92,36 +92,44 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 
+// Superclass for other entities besides enemy
+// Takes in x and y coordinates as parameters
 var Entity = function(x, y) {
     // Sets the entity's initial location
     // The x parameter gets passed to .render, which uses it to set
-    // the x-coordinate of the player object on the canvas
+    // the x-coordinate of the subclass instances' object on the canvas
     this.x = x;
     // The y parameter gets passed to .render, which uses it to set
-    // the y-coordinate of the player object on the canvas
+    // the y-coordinate of the subclass instances' object on the canvas
     this.y = y;
 };
 
-// Draw the PLAYER on the screen, required method for game
+// Draw the entity on the screen, required method for game
 Entity.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
+// Player subclass of Entity
+// Takes in x and y paramaters to be passed to Entity
+// Declares what sprite to be used in render function
 var Player = function(x, y) {
 
     // The image/sprite for our player, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-cat-girl.png';
 
+    // Call the Entity superclass in the contest of the
+    // specific instance of Player, and pass the
+    // x and y parameters to Entity
     Entity.call(this, x, y);
 };
 
+// Delegate the Player prototype to the Entity prototype
 Player.prototype = Object.create(Entity.prototype);
 
+// Recreate the constructor for Player.prototype
 Player.prototype.constructor = Player;
 
 // Update the player's position, required method for game
@@ -191,20 +199,25 @@ Player.prototype.handleInput = function(allowedKeys) {
 };
 
 
-// The constructor of the Rock class
+// Rock subclass of Entity
 var Rock = function(x, y){
 
     // Set the image for each rock
     this.sprite = 'images/Rock.png';
 
-    // Location parameters for each rock
+    // Call the Entity superclass in the contest of the
+    // specific instance of Rock, and pass the
+    // x and y parameters to Entity
     Entity.call(this, x, y);
 };
 
+// Setup the Rock prototype chain
 Rock.prototype = Object.create(Entity.prototype);
 
+// Recreate the Rock prototype constructor
 Rock.prototype.constructor = Rock;
 
+// Handle player collision with Rock instances
 Rock.prototype.collide = function(){
 
     // Reset player position upon collision with a rock
@@ -218,20 +231,26 @@ Rock.prototype.collide = function(){
 };
 
 
-// Constructor for the Star class
+// Star subclass of Entity
 var Star = function(x, y) {
 
     // Set the image for each star
     this.sprite = 'images/Star.png';
 
+    // Call the Entity superclass in the contest of the
+    // specific instance of Star, and pass the
+    // x and y parameters to Entity
     Entity.call(this, x, y);
 
 };
 
+// Set up the Star prototype chain
 Star.prototype = Object.create(Entity.prototype);
 
+// Recreate the Star prototype constructor
 Star.prototype.constructor = Star;
 
+// Handle player collision with Star instances
 Star.prototype.collide = function () {
 
     // Upon collision with a star, remove the 4th and 5th instance
