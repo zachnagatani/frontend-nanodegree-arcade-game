@@ -96,6 +96,25 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+var Entity = function(x, y, sprite) {
+    // The image/sprite for our player, this uses
+    // a helper we've provided to easily load images
+    this.sprite = sprite;
+
+    // Sets the player's initial location
+    // The x parameter gets passed to .render, which uses it to set
+    // the x-coordinate of the player object on the canvas
+    this.x = x;
+    // The y parameter gets passed to .render, which uses it to set
+    // the y-coordinate of the player object on the canvas
+    this.y = y;
+};
+
+// Draw the PLAYER on the screen, required method for game
+Entity.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
 var Player = function(x, y) {
 
     // The image/sprite for our player, this uses
