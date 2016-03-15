@@ -103,6 +103,10 @@ var Engine = (function(global) {
         allRocks.forEach(function(rock){
             rock.collide();
         });
+
+        allStars.forEach(function(star){
+            star.collide();
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -163,6 +167,10 @@ var Engine = (function(global) {
             rock.render();
         });
 
+        allStars.forEach(function(star){
+            star.render();
+        });
+
         player.render();
     }
 
@@ -185,7 +193,8 @@ var Engine = (function(global) {
         'images/enemy-bug.png',
         'images/char-boy.png',
         'images/Rock.png',
-        'images/char-cat-girl.png'
+        'images/char-cat-girl.png',
+        'images/Star.png',
     ]);
     Resources.onReady(init);
 

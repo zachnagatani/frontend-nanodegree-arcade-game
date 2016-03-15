@@ -16,7 +16,8 @@ var Enemy = function(x, y, speedX, speedY) {
     this.y = y;
 
     // Sets the speed for each instance of the Enemy class
-    // Stores the speed parameter in this.speed
+    // for movement speed on the x and y axes
+    // Stores the speed parameter in this.speedX and this.speedY
     // to be used in our .update method
     this.speedX = speedX;
     this.speedY = speedY;
@@ -179,15 +180,21 @@ Player.prototype.handleInput = function(allowedKeys) {
         }
 };
 
+
+// The constructor of the Rock class
 var Rock = function(x, y){
 
+    // Set the image for each rock
     this.sprite = 'images/Rock.png';
 
+    // Location parameters for each rock
     this.x = x;
     this.y = y;
 };
 
 Rock.prototype.collide = function(){
+
+    // Reset player position upon collision with a rock
     if (this.x < player.x + 66 &&
         this.x + 50 > player.x &&
         this.y < player.y + 95 &&
@@ -201,10 +208,14 @@ Rock.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+
+// Constructor for the Star class
 var Star = function(x, y) {
 
+    // Set the image for each star
     this.sprite = 'images/Star.png';
 
+    // Parameters for location of each star
     this.x = x;
     this.y = y;
 
@@ -212,7 +223,36 @@ var Star = function(x, y) {
 
 Star.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
+
+Star.prototype.collide = function () {
+    // TODO: Loop through allStars array and erase/move corresponding enemy
+    // for (indexCount = 0; indexCount < allStars.length; indexCount++ ){
+    //     var removeEnemy = allEnemies[indexCount];
+    //     if (this.x < player.x + 66 &&
+    //         this.x + 40 > player.x &&
+    //         this.y < player.y + 95 &&
+    //         40 + this.y > player.y) {
+
+    //         removeEnemy.x = -400;
+
+    //     }
+    // }
+
+    // Upon collision with a star, remove the 4th and 5th instance
+    // of the Enemy class
+    for (indexCount = 0; indexCount < allStars.length; indexCount++ ){
+        if (this.x < player.x + 66 &&
+            this.x + 40 > player.x &&
+            this.y < player.y + 95 &&
+            40 + this.y > player.y) {
+            allEnemies[3].y = -400;
+            allEnemies[4].x = -400;
+
+        }
+    }
+
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -220,8 +260,10 @@ Star.prototype.render = function () {
 // x and y coordinates, as well as desired speed as parameters
 var allEnemies = [
     enemy1 = new Enemy(100, 50, 50),
-    enemy2 = new Enemy(30, 200, 0, 100),
+    enemy2 = new Enemy(30, 40, 0, 100),
     enemy3 = new Enemy(20, 125, 150),
+    enemy4 = new Enemy(0, 250, 400),
+    enemy5 = new Enemy(375, 40, 0, 400),
     // enemy4 = new Enemy(200, 40, 0, 400),
 ];
 
@@ -229,6 +271,11 @@ var allEnemies = [
 var allRocks = [
     rock1 = new Rock(100, 272),
     rock2 = new Rock(300, 150),
+];
+
+// Instantiate and store Star instances and pass their x and y parameters
+var allStars = [
+    star1 = new Star(350, 250),
 ];
 
 // Place the player object in a variable called player
