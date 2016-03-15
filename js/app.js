@@ -260,8 +260,8 @@ Star.prototype.collide = function () {
             this.x + 40 > player.x &&
             this.y < player.y + 95 &&
             40 + this.y > player.y) {
-            // allEnemies[3].y = -400;
-            // allEnemies[4].x = -400;
+            allEnemies[3].y = -400;
+            allEnemies[4].x = -400;
 
         }
     }
@@ -276,8 +276,8 @@ var allEnemies = [
     enemy1 = new Enemy(100, 50, 50),
     enemy2 = new Enemy(30, 40, 0, 100),
     enemy3 = new Enemy(20, 125, 150),
-    // enemy4 = new Enemy(0, 250, 400),
-    // enemy5 = new Enemy(375, 40, 0, 400),
+    enemy4 = new Enemy(0, 250, 400),
+    enemy5 = new Enemy(375, 40, 0, 400),
 ];
 
 // Instantiate and store Rock instances and pass their x and y paramaters
