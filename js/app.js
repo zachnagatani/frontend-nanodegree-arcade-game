@@ -33,22 +33,22 @@ Enemy.prototype.update = function(dt) {
     // If the speedX paramater is not 0, run this if statement
     if (this.speedX !== 0) {
 
-            // Takes the x-coordinate of each instance of Enemy
-            // on the canvas, then adds the speed parameter (passed in
-            // with each instance) to it. This is multiplied by dt
-            this.x += this.speedX * dt;
+        // Takes the x-coordinate of each instance of Enemy
+        // on the canvas, then adds the speed parameter (passed in
+        // with each instance) to it. This is multiplied by dt
+        this.x += this.speedX * dt;
 
-            // Reverts the position x-axis based Enemy instances when
-            // reaching the end of the canvas
-            if (this.x >= 400) {
-                this.x = 0;
-            }
+        // Reverts the position x-axis based Enemy instances when
+        // reaching the end of the canvas
+        if (this.x >= 400) {
+            this.x = 0;
+        }
 
-            // Reverts the player character and the specific instance
-            // of the Enemy class (on the x-axis) upon collision. Adds the specific
-            // width and height of player and enemy sprites to calculate
-            // an accurate collision
-            if (this.x < player.x + 66 &&
+        // Reverts the player character and the specific instance
+        // of the Enemy class (on the x-axis) upon collision. Adds the specific
+        // width and height of player and enemy sprites to calculate
+        // an accurate collision
+        if (this.x < player.x + 66 &&
             this.x + 66 > player.x &&
             this.y < player.y + 95 &&
             66 + this.y > player.y) {
@@ -57,7 +57,7 @@ Enemy.prototype.update = function(dt) {
             player.y = 350;
 
             this.x = 0;
-            }
+        }
     }
 
     // If there is a speedY-paramater passed into the instance, run this if statement
@@ -144,139 +144,139 @@ Player.prototype.update = function(dt) {
 Player.prototype.handleInput = function(allowedKeys) {
 
 
-        // Store the key-code of the keyup event in a variable
-        var key_press = event.keyCode;
-        var tileWidth = 101;
-        var tileHeight = 83;
+    // Store the key-code of the keyup event in a variable
+    var key_press = event.keyCode;
+    var tileWidth = 101;
+    var tileHeight = 83;
 
 
-        // // Reset the player's location on the x-axis if moved
-        // // off the canvas
-        // if (this.x - 66 < 0 || this.x + 100 > 505) {
-        //     this.x = 205;
-        // }
+    // // Reset the player's location on the x-axis if moved
+    // // off the canvas
+    // if (this.x - 66 < 0 || this.x + 100 > 505) {
+    //     this.x = 205;
+    // }
 
-        // // Reset the player's location on the y-axis if moved
-        // // off the bottom of the canvas
-        // if (this.y + 95 > 400) {
-        //     this.y = 350;
-        // }
+    // // Reset the player's location on the y-axis if moved
+    // // off the bottom of the canvas
+    // if (this.y + 95 > 400) {
+    //     this.y = 350;
+    // }
 
-        // // Reset the whole game if the player reaches the water
-        // if (this.y < 40) {
-        //     // Reset the player's location
-        //     this.y = 350;
-        //     this.x = 205;
+    // // Reset the whole game if the player reaches the water
+    // if (this.y < 40) {
+    //     // Reset the player's location
+    //     this.y = 350;
+    //     this.x = 205;
 
-        //     // Reset the location of each instance of Enemy
-        //     for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
-        //         allEnemies[indexCount].x = 0;
-        //     }
+    //     // Reset the location of each instance of Enemy
+    //     for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
+    //         allEnemies[indexCount].x = 0;
+    //     }
 
-        //     // Say something stupid.
-        //     alert("Congrats! You drowned.");
-        // }
+    //     // Say something stupid.
+    //     alert("Congrats! You drowned.");
+    // }
 
-        // // Move the character left with a left-arrow keyup
-        // if (key_press = "left"){
-        //     // Reset the player's location on the x-axis if moved
-        //     // off the canvas
-        //     if (this.x - 66 < 0 || this.x + 100 > 505) {
-        //         this.x = 205;
-        //     }
-        //     this.x = this.x - tileWidth;
-        // }
+    // // Move the character left with a left-arrow keyup
+    // if (key_press = "left"){
+    //     // Reset the player's location on the x-axis if moved
+    //     // off the canvas
+    //     if (this.x - 66 < 0 || this.x + 100 > 505) {
+    //         this.x = 205;
+    //     }
+    //     this.x = this.x - tileWidth;
+    // }
 
-        // // Move the character up with an up-arrow keyup
-        // if (key_press = "up"){
-        //     // Reset the whole game if the player reaches the water
-        //     if (this.y < 40) {
-        //         // Reset the player's location
-        //         this.y = 350;
-        //         this.x = 205;
+    // // Move the character up with an up-arrow keyup
+    // if (key_press = "up"){
+    //     // Reset the whole game if the player reaches the water
+    //     if (this.y < 40) {
+    //         // Reset the player's location
+    //         this.y = 350;
+    //         this.x = 205;
 
-        //         // Reset the location of each instance of Enemy
-        //         for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
-        //             allEnemies[indexCount].x = 0;
-        //         }
+    //         // Reset the location of each instance of Enemy
+    //         for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
+    //             allEnemies[indexCount].x = 0;
+    //         }
 
-        //         // Say something stupid.
-        //         alert("Congrats! You drowned.");
-        //     }
-        // }
+    //         // Say something stupid.
+    //         alert("Congrats! You drowned.");
+    //     }
+    // }
 
-        // // Move the character right with a right-arrow keyup
-        // if (key_press = "right"){
-        //     // Reset the player's location on the x-axis if moved
-        //     // off the canvas
-        //     if (this.x - 66 < 0 || this.x + 100 > 505) {
-        //         this.x = 205;
-        //     }
-        //     this.x = this.x + tileWidth;
-        // }
+    // // Move the character right with a right-arrow keyup
+    // if (key_press = "right"){
+    //     // Reset the player's location on the x-axis if moved
+    //     // off the canvas
+    //     if (this.x - 66 < 0 || this.x + 100 > 505) {
+    //         this.x = 205;
+    //     }
+    //     this.x = this.x + tileWidth;
+    // }
 
-        // // Move the character down with a down-arrow keyup
-        // if (key_press = "down"){
-        //     // Reset the player's location on the y-axis if moved
-        //     // off the bottom of the canvas
-        //     if (this.y + 95 > 400) {
-        //         this.y = 350;
-        //     }
-        //     this.y = this.y + tileHeight;
-        // }
+    // // Move the character down with a down-arrow keyup
+    // if (key_press = "down"){
+    //     // Reset the player's location on the y-axis if moved
+    //     // off the bottom of the canvas
+    //     if (this.y + 95 > 400) {
+    //         this.y = 350;
+    //     }
+    //     this.y = this.y + tileHeight;
+    // }
 
-        switch(allowedKeys) {
-            case 'left':
-                // Reset the player's location on the x-axis if moved
-                // off the canvas
-                if (this.x - 66 < 0 || this.x + 100 > 505) {
-                    this.x = 205;
+    switch (allowedKeys) {
+        case 'left':
+            // Reset the player's location on the x-axis if moved
+            // off the canvas
+            if (this.x - 66 < 0 || this.x + 100 > 505) {
+                this.x = 205;
+            }
+            this.x = this.x - tileWidth;
+            break;
+
+        case 'up':
+            // Reset the whole game if the player reaches the water
+            if (this.y < 40) {
+                // Reset the player's location
+                this.y = 350;
+                this.x = 205;
+
+                // Reset the location of each instance of Enemy
+                for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
+                    allEnemies[indexCount].x = 0;
                 }
-                this.x = this.x - tileWidth;
-                break;
 
-            case 'up':
-                // Reset the whole game if the player reaches the water
-                if (this.y < 40) {
-                    // Reset the player's location
-                    this.y = 350;
-                    this.x = 205;
+                // Say something stupid.
+                alert("Congrats! You drowned.");
+            }
+            this.y = this.y - tileHeight;
+            break;
 
-                    // Reset the location of each instance of Enemy
-                    for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
-                        allEnemies[indexCount].x = 0;
-                    }
+        case 'right':
+            // Reset the player's location on the x-axis if moved
+            // off the canvas
+            if (this.x - 66 < 0 || this.x + 100 > 505) {
+                this.x = 205;
+            }
+            this.x = this.x + tileWidth;
+            break;
 
-                    // Say something stupid.
-                    alert("Congrats! You drowned.");
-                }
-                this.y = this.y - tileHeight;
-                break;
-
-            case 'right':
-                // Reset the player's location on the x-axis if moved
-                // off the canvas
-                if (this.x - 66 < 0 || this.x + 100 > 505) {
-                    this.x = 205;
-                }
-                this.x = this.x + tileWidth;
-                break;
-
-            case 'down':
-                // Reset the player's location on the y-axis if moved
-                // off the bottom of the canvas
-                if (this.y + 95 > 400) {
-                    this.y = 350;
-                }
-                this.y = this.y + tileHeight;
-                break;
-        }
+        case 'down':
+            // Reset the player's location on the y-axis if moved
+            // off the bottom of the canvas
+            if (this.y + 95 > 400) {
+                this.y = 350;
+            }
+            this.y = this.y + tileHeight;
+            break;
+    }
 
 };
 
 
 // Rock subclass of Entity
-var Rock = function(x, y){
+var Rock = function(x, y) {
 
     // Set the image for each rock
     this.sprite = 'images/Rock.png';
@@ -294,7 +294,7 @@ Rock.prototype = Object.create(Entity.prototype);
 Rock.prototype.constructor = Rock;
 
 // Handle player collision with Rock instances
-Rock.prototype.collide = function(){
+Rock.prototype.collide = function() {
 
     // Reset player position upon collision with a rock
     if (this.x < player.x + 66 &&
@@ -327,11 +327,11 @@ Star.prototype = Object.create(Entity.prototype);
 Star.prototype.constructor = Star;
 
 // Handle player collision with Star instances
-Star.prototype.collide = function () {
+Star.prototype.collide = function() {
 
     // Upon collision with a star, remove the 4th and 5th instance
     // of the Enemy class
-    for (indexCount = 0; indexCount < allStars.length; indexCount++ ){
+    for (indexCount = 0; indexCount < allStars.length; indexCount++) {
         if (this.x < player.x + 66 &&
             this.x + 40 > player.x &&
             this.y < player.y + 95 &&
