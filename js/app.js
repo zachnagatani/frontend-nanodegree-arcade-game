@@ -1,8 +1,9 @@
 // Global Variables
+// The width and height of the player sprite
 var PLAYER_WIDTH = 50;
 var PLAYER_HEIGHT = 95;
 
-// Superclass for other entities besides enemy
+// Superclass for all entities
 // Takes in x and y coordinates as parameters
 var Entity = function(x, y) {
     // Sets the entity's initial location
@@ -13,6 +14,8 @@ var Entity = function(x, y) {
     // the y-coordinate of the subclass instances' object on the canvas
     this.y = y;
 
+    // Creates another value within each instance an entity to hold the originally
+    // passed in x and y coordinates
     this.startX = x;
     this.startY = y;
 };
@@ -23,25 +26,12 @@ Entity.prototype.render = function() {
 };
 
 // Enemies our player must avoid
+// Subclass of Entity
 var Enemy = function(x, y, speedX, speedY) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-
-    // // Sets initial location for enemies
-    // // The x parameter gets passed to .render, which uses it to set
-    // // the x-coordinate of the enemy object on the canvas
-    // this.x = x;
-    // // The y parameter gets passed to our .render method, which uses it to set
-    // // the y-coordinate of the enemy object on the canvas
-    // this.y = y;
-
-    Entity.call(this, x, y, speedX, speedY);
-
-
 
     // Sets the speed for each instance of the Enemy class
     // for movement speed on the x and y axes
@@ -49,10 +39,17 @@ var Enemy = function(x, y, speedX, speedY) {
     // to be used in our .update method
     this.speedX = speedX;
     this.speedY = speedY;
+
+    // Call the Entity superclass in the contest of the
+    // specific instance of Enemy, and pass the
+    // x, y, speedX, and speedY parameters to Entity
+    Entity.call(this, x, y, speedX, speedY);
 };
 
+// Delegate Enemy to the Entity prototype chain
 Enemy.prototype = Object.create(Entity.prototype);
 
+// Restore the lost constructor for Enemy.prototype
 Enemy.prototype.constructor = Enemy;
 
 // Update the enemy's position, required method for game
@@ -62,6 +59,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
+    // The width and height of the enemy sprites for collision
     var ENEMY_WIDTH = 66;
     var ENEMY_HEIGHT = 66;
 
@@ -88,14 +86,18 @@ Enemy.prototype.update = function(dt) {
             this.y < player.y + PLAYER_HEIGHT &&
             ENEMY_HEIGHT + this.y > player.y) {
 
+            // Reverts the player's current position back
+            // to the originally passed in coordinates
             player.x = player.startX;
             player.y = player.startY;
 
-            this.x = 0;
+            // Reverts the enemy's position back to its original
+            // x position
+            this.x = this.startX;
         }
     }
 
-    // If there is a speedY-paramater passed into the instance, run this if statement
+    // If there is a speedY-parameter passed into the instance, run this if statement
     if (this.speedY !== undefined) {
 
         // Move the Enemy instance down the y-axis
@@ -115,8 +117,13 @@ Enemy.prototype.update = function(dt) {
             this.y < player.y + PLAYER_HEIGHT &&
             ENEMY_HEIGHT + this.y > player.y) {
 
+            // Reverts the player's current position back
+            // to the originally passed in coordinates
             player.x = player.startX;
             player.y = player.startY;
+
+            // Reverts the enemy's position back to the edge
+            // of the water
             this.y = 40;
         }
     }
@@ -163,8 +170,12 @@ Player.prototype.handleInput = function(allowedKeys) {
             // Reset the player's location on the x-axis if moved
             // off the canvas
             if (this.x - PLAYER_WIDTH < 0) {
+                // Stop executing the code upon reaching edge
+                // of canvas to prevent player from moving
+                // off-screen
                 break;
             }
+            // Move the player left a tile-width
             this.x = this.x - tileWidth;
             break;
 
@@ -177,12 +188,14 @@ Player.prototype.handleInput = function(allowedKeys) {
 
                 // Reset the location of each instance of Enemy
                 for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
-
+                    // Revert enemies' x and y-axes to original coordinates
                     allEnemies[indexCount].x = allEnemies[indexCount].startX;
                     allEnemies[indexCount].y = allEnemies[indexCount].startY;
                 }
 
+                // Reset location of each instance of Star
                 for (var indexCount = 0; indexCount < allStars.length; indexCount++) {
+                    // Revert stars' x and y-axes to original coordinates
                     allStars[indexCount].x = allStars[indexCount].startX;
                     allStars[indexCount].y = allStars[indexCount].startY;
                 }
@@ -190,6 +203,7 @@ Player.prototype.handleInput = function(allowedKeys) {
                 // Say something stupid.
                 alert("Congrats! You drowned.");
             }
+            // Move the player up a tile-height
             this.y = this.y - tileHeight;
             break;
 
@@ -197,8 +211,12 @@ Player.prototype.handleInput = function(allowedKeys) {
             // Reset the player's location on the x-axis if moved
             // off the canvas
             if (this.x + 100 > 505) {
+                // Stop executing the code upon reaching edge
+                // of canvas to prevent player from moving
+                // off-screen
                 break;
             }
+            // Move the player right a tile-width
             this.x = this.x + tileWidth;
             break;
 
@@ -206,8 +224,12 @@ Player.prototype.handleInput = function(allowedKeys) {
             // Reset the player's location on the y-axis if moved
             // off the bottom of the canvas
             if (this.y + PLAYER_HEIGHT > 450) {
+                // Stop executing the code upon reaching edge
+                // of canvas to prevent player from moving
+                // off-screen
                 break;
             }
+            // Move the player down a tile-height
             this.y = this.y + tileHeight;
             break;
     }
@@ -236,6 +258,7 @@ Rock.prototype.constructor = Rock;
 // Handle player collision with Rock instances
 Rock.prototype.collide = function() {
 
+    // Width and height of rock sprite for collision
     var ROCK_WIDTH = 50;
     var ROCK_HEIGHT = 50;
 
@@ -244,6 +267,9 @@ Rock.prototype.collide = function() {
         this.x + ROCK_WIDTH > player.x &&
         this.y < player.y + PLAYER_HEIGHT &&
         ROCK_HEIGHT + this.y > player.y) {
+
+        // Reset player's x and y coordinates upon
+        // collision with rock
         player.x = player.startX;
         player.y = player.startY;
     }
@@ -272,6 +298,7 @@ Star.prototype.constructor = Star;
 // Handle player collision with Star instances
 Star.prototype.collide = function() {
 
+    // Star sprite width and height for collision
     var STAR_WIDTH = 40;
     var STAR_HEIGHT = 40;
 
@@ -282,8 +309,13 @@ Star.prototype.collide = function() {
             this.x + STAR_WIDTH > player.x &&
             this.y < player.y + PLAYER_HEIGHT &&
             STAR_HEIGHT + this.y > player.y) {
+
+            // Move chosen enemies off-screen upon collision with star
+            // until game reset
             allEnemies[3].y = -400;
             allEnemies[4].x = -400;
+
+            // Move star offscreen until game reset
             this.x = this.x - 1000;
 
         }
