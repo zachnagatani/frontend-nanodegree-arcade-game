@@ -2,6 +2,23 @@
 var PLAYER_WIDTH = 50;
 var PLAYER_HEIGHT = 95;
 
+// Superclass for other entities besides enemy
+// Takes in x and y coordinates as parameters
+var Entity = function(x, y) {
+    // Sets the entity's initial location
+    // The x parameter gets passed to .render, which uses it to set
+    // the x-coordinate of the subclass instances' object on the canvas
+    this.x = x;
+    // The y parameter gets passed to .render, which uses it to set
+    // the y-coordinate of the subclass instances' object on the canvas
+    this.y = y;
+};
+
+// Draw the entity on the screen, required method for game
+Entity.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speedX, speedY) {
     // Variables applied to each of our instances go here,
@@ -11,13 +28,15 @@ var Enemy = function(x, y, speedX, speedY) {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 
-    // Sets initial location for enemies
-    // The x parameter gets passed to .render, which uses it to set
-    // the x-coordinate of the enemy object on the canvas
-    this.x = x;
-    // The y parameter gets passed to our .render method, which uses it to set
-    // the y-coordinate of the enemy object on the canvas
-    this.y = y;
+    // // Sets initial location for enemies
+    // // The x parameter gets passed to .render, which uses it to set
+    // // the x-coordinate of the enemy object on the canvas
+    // this.x = x;
+    // // The y parameter gets passed to our .render method, which uses it to set
+    // // the y-coordinate of the enemy object on the canvas
+    // this.y = y;
+
+    Entity.call(this, x, y, speedX, speedY);
 
 
 
@@ -62,8 +81,8 @@ Enemy.prototype.update = function(dt) {
             this.y < player.y + PLAYER_HEIGHT &&
             ENEMY_HEIGHT + this.y > player.y) {
 
-            player.x = startX;
-            player.y = startY;
+            player.x = 205;
+            player.y = 350;
 
             this.x = 0;
         }
@@ -89,8 +108,8 @@ Enemy.prototype.update = function(dt) {
             this.y < player.y + PLAYER_HEIGHT &&
             ENEMY_HEIGHT + this.y > player.y) {
 
-            player.x = startX;
-            player.y = startY;
+            player.x = 205;
+            player.y = 350;
             this.y = 40;
         }
     }
@@ -98,27 +117,6 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-
-// Superclass for other entities besides enemy
-// Takes in x and y coordinates as parameters
-var Entity = function(x, y) {
-    // Sets the entity's initial location
-    // The x parameter gets passed to .render, which uses it to set
-    // the x-coordinate of the subclass instances' object on the canvas
-    this.x = x;
-    // The y parameter gets passed to .render, which uses it to set
-    // the y-coordinate of the subclass instances' object on the canvas
-    this.y = y;
-
-    startX = x;
-    startY = y;
-};
-
-// Draw the entity on the screen, required method for game
-Entity.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -163,7 +161,7 @@ Player.prototype.handleInput = function(allowedKeys) {
             // Reset the player's location on the x-axis if moved
             // off the canvas
             if (this.x - PLAYER_WIDTH < 0) {
-                this.x = startX;
+                break;
             }
             this.x = this.x - tileWidth;
             break;
@@ -172,8 +170,8 @@ Player.prototype.handleInput = function(allowedKeys) {
             // Reset the whole game if the player reaches the water
             if (this.y < 40) {
                 // Reset the player's location
-                this.y = startY + PLAYER_HEIGHT;
-                this.x = startX;
+                this.y = 350 + PLAYER_HEIGHT;
+                this.x = 205;
 
                 // Reset the location of each instance of Enemy
                 for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
@@ -193,7 +191,7 @@ Player.prototype.handleInput = function(allowedKeys) {
             // Reset the player's location on the x-axis if moved
             // off the canvas
             if (this.x + 100 > 505) {
-                this.x = startX;
+                break;
             }
             this.x = this.x + tileWidth;
             break;
@@ -201,8 +199,8 @@ Player.prototype.handleInput = function(allowedKeys) {
         case 'down':
             // Reset the player's location on the y-axis if moved
             // off the bottom of the canvas
-            if (this.y + PLAYER_HEIGHT > 400) {
-                this.y = startY;
+            if (this.y + PLAYER_HEIGHT > 500) {
+                break;
             }
             this.y = this.y + tileHeight;
             break;
