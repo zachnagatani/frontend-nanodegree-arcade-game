@@ -1,3 +1,7 @@
+// Global Variables
+var PLAYER_WIDTH = 50;
+var PLAYER_HEIGHT = 95;
+
 // Enemies our player must avoid
 var Enemy = function(x, y, speedX, speedY) {
     // Variables applied to each of our instances go here,
@@ -15,6 +19,8 @@ var Enemy = function(x, y, speedX, speedY) {
     // the y-coordinate of the enemy object on the canvas
     this.y = y;
 
+
+
     // Sets the speed for each instance of the Enemy class
     // for movement speed on the x and y axes
     // Stores the speed parameter in this.speedX and this.speedY
@@ -29,6 +35,9 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any  movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+
+    var ENEMY_WIDTH = 66;
+    var ENEMY_HEIGHT = 66;
 
     // If the speedX paramater is not 0, run this if statement
     if (this.speedX !== 0) {
@@ -48,13 +57,13 @@ Enemy.prototype.update = function(dt) {
         // of the Enemy class (on the x-axis) upon collision. Adds the specific
         // width and height of player and enemy sprites to calculate
         // an accurate collision
-        if (this.x < player.x + 66 &&
-            this.x + 66 > player.x &&
-            this.y < player.y + 95 &&
-            66 + this.y > player.y) {
+        if (this.x < player.x + PLAYER_WIDTH &&
+            this.x + ENEMY_WIDTH > player.x &&
+            this.y < player.y + PLAYER_HEIGHT &&
+            ENEMY_HEIGHT + this.y > player.y) {
 
-            player.x = 205;
-            player.y = 350;
+            player.x = startX;
+            player.y = startY;
 
             this.x = 0;
         }
@@ -75,13 +84,13 @@ Enemy.prototype.update = function(dt) {
         // of the Enemy class (on the y-axis) upon collision. Adds the specific
         // width and height of player and enemy sprites to calculate
         // an accurate collision
-        if (this.x < player.x + 66 &&
-            this.x + 66 > player.x &&
-            this.y < player.y + 95 &&
-            66 + this.y > player.y) {
+        if (this.x < player.x + PLAYER_WIDTH &&
+            this.x + ENEMY_WIDTH > player.x &&
+            this.y < player.y + PLAYER_HEIGHT &&
+            ENEMY_HEIGHT + this.y > player.y) {
 
-            player.x = 205;
-            player.y = 350;
+            player.x = startX;
+            player.y = startY;
             this.y = 40;
         }
     }
@@ -103,6 +112,9 @@ var Entity = function(x, y) {
     // The y parameter gets passed to .render, which uses it to set
     // the y-coordinate of the subclass instances' object on the canvas
     this.y = y;
+
+    startX = x;
+    startY = y;
 };
 
 // Draw the entity on the screen, required method for game
@@ -143,94 +155,15 @@ Player.prototype.update = function(dt) {
 // Control the input of the user
 Player.prototype.handleInput = function(allowedKeys) {
 
-
-    // Store the key-code of the keyup event in a variable
-    var key_press = event.keyCode;
     var tileWidth = 101;
     var tileHeight = 83;
-
-
-    // // Reset the player's location on the x-axis if moved
-    // // off the canvas
-    // if (this.x - 66 < 0 || this.x + 100 > 505) {
-    //     this.x = 205;
-    // }
-
-    // // Reset the player's location on the y-axis if moved
-    // // off the bottom of the canvas
-    // if (this.y + 95 > 400) {
-    //     this.y = 350;
-    // }
-
-    // // Reset the whole game if the player reaches the water
-    // if (this.y < 40) {
-    //     // Reset the player's location
-    //     this.y = 350;
-    //     this.x = 205;
-
-    //     // Reset the location of each instance of Enemy
-    //     for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
-    //         allEnemies[indexCount].x = 0;
-    //     }
-
-    //     // Say something stupid.
-    //     alert("Congrats! You drowned.");
-    // }
-
-    // // Move the character left with a left-arrow keyup
-    // if (key_press = "left"){
-    //     // Reset the player's location on the x-axis if moved
-    //     // off the canvas
-    //     if (this.x - 66 < 0 || this.x + 100 > 505) {
-    //         this.x = 205;
-    //     }
-    //     this.x = this.x - tileWidth;
-    // }
-
-    // // Move the character up with an up-arrow keyup
-    // if (key_press = "up"){
-    //     // Reset the whole game if the player reaches the water
-    //     if (this.y < 40) {
-    //         // Reset the player's location
-    //         this.y = 350;
-    //         this.x = 205;
-
-    //         // Reset the location of each instance of Enemy
-    //         for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
-    //             allEnemies[indexCount].x = 0;
-    //         }
-
-    //         // Say something stupid.
-    //         alert("Congrats! You drowned.");
-    //     }
-    // }
-
-    // // Move the character right with a right-arrow keyup
-    // if (key_press = "right"){
-    //     // Reset the player's location on the x-axis if moved
-    //     // off the canvas
-    //     if (this.x - 66 < 0 || this.x + 100 > 505) {
-    //         this.x = 205;
-    //     }
-    //     this.x = this.x + tileWidth;
-    // }
-
-    // // Move the character down with a down-arrow keyup
-    // if (key_press = "down"){
-    //     // Reset the player's location on the y-axis if moved
-    //     // off the bottom of the canvas
-    //     if (this.y + 95 > 400) {
-    //         this.y = 350;
-    //     }
-    //     this.y = this.y + tileHeight;
-    // }
 
     switch (allowedKeys) {
         case 'left':
             // Reset the player's location on the x-axis if moved
             // off the canvas
-            if (this.x - 66 < 0 || this.x + 100 > 505) {
-                this.x = 205;
+            if (this.x - PLAYER_WIDTH < 0) {
+                this.x = startX;
             }
             this.x = this.x - tileWidth;
             break;
@@ -239,12 +172,15 @@ Player.prototype.handleInput = function(allowedKeys) {
             // Reset the whole game if the player reaches the water
             if (this.y < 40) {
                 // Reset the player's location
-                this.y = 350;
-                this.x = 205;
+                this.y = startY + PLAYER_HEIGHT;
+                this.x = startX;
 
                 // Reset the location of each instance of Enemy
                 for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
+
                     allEnemies[indexCount].x = 0;
+
+
                 }
 
                 // Say something stupid.
@@ -256,8 +192,8 @@ Player.prototype.handleInput = function(allowedKeys) {
         case 'right':
             // Reset the player's location on the x-axis if moved
             // off the canvas
-            if (this.x - 66 < 0 || this.x + 100 > 505) {
-                this.x = 205;
+            if (this.x + 100 > 505) {
+                this.x = startX;
             }
             this.x = this.x + tileWidth;
             break;
@@ -265,8 +201,8 @@ Player.prototype.handleInput = function(allowedKeys) {
         case 'down':
             // Reset the player's location on the y-axis if moved
             // off the bottom of the canvas
-            if (this.y + 95 > 400) {
-                this.y = 350;
+            if (this.y + PLAYER_HEIGHT > 400) {
+                this.y = startY;
             }
             this.y = this.y + tileHeight;
             break;
@@ -296,11 +232,14 @@ Rock.prototype.constructor = Rock;
 // Handle player collision with Rock instances
 Rock.prototype.collide = function() {
 
+    var ROCK_WIDTH = 50;
+    var ROCK_HEIGHT = 50;
+
     // Reset player position upon collision with a rock
-    if (this.x < player.x + 66 &&
-        this.x + 50 > player.x &&
-        this.y < player.y + 95 &&
-        50 + this.y > player.y) {
+    if (this.x < player.x + PLAYER_WIDTH &&
+        this.x + ROCK_WIDTH > player.x &&
+        this.y < player.y + PLAYER_HEIGHT &&
+        ROCK_HEIGHT + this.y > player.y) {
         player.x = 205;
         player.y = 350;
     }
@@ -329,13 +268,16 @@ Star.prototype.constructor = Star;
 // Handle player collision with Star instances
 Star.prototype.collide = function() {
 
+    var STAR_WIDTH = 40;
+    var STAR_HEIGHT = 40;
+
     // Upon collision with a star, remove the 4th and 5th instance
     // of the Enemy class
     for (indexCount = 0; indexCount < allStars.length; indexCount++) {
-        if (this.x < player.x + 66 &&
-            this.x + 40 > player.x &&
-            this.y < player.y + 95 &&
-            40 + this.y > player.y) {
+        if (this.x < player.x + PLAYER_WIDTH &&
+            this.x + STAR_WIDTH > player.x &&
+            this.y < player.y + PLAYER_HEIGHT &&
+            STAR_HEIGHT + this.y > player.y) {
             allEnemies[3].y = -400;
             allEnemies[4].x = -400;
             this.x = this.x - 1000;
