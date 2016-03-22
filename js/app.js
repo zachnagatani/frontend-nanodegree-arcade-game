@@ -12,6 +12,9 @@ var Entity = function(x, y) {
     // The y parameter gets passed to .render, which uses it to set
     // the y-coordinate of the subclass instances' object on the canvas
     this.y = y;
+
+    this.startX = x;
+    this.startY = y;
 };
 
 // Draw the entity on the screen, required method for game
@@ -48,6 +51,10 @@ var Enemy = function(x, y, speedX, speedY) {
     this.speedY = speedY;
 };
 
+Enemy.prototype = Object.create(Entity.prototype);
+
+Enemy.prototype.constructor = Enemy;
+
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
@@ -81,8 +88,8 @@ Enemy.prototype.update = function(dt) {
             this.y < player.y + PLAYER_HEIGHT &&
             ENEMY_HEIGHT + this.y > player.y) {
 
-            player.x = 205;
-            player.y = 350;
+            player.x = player.startX;
+            player.y = player.startY;
 
             this.x = 0;
         }
@@ -108,16 +115,11 @@ Enemy.prototype.update = function(dt) {
             this.y < player.y + PLAYER_HEIGHT &&
             ENEMY_HEIGHT + this.y > player.y) {
 
-            player.x = 205;
-            player.y = 350;
+            player.x = player.startX;
+            player.y = player.startY;
             this.y = 40;
         }
     }
-};
-
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
 
@@ -170,15 +172,19 @@ Player.prototype.handleInput = function(allowedKeys) {
             // Reset the whole game if the player reaches the water
             if (this.y < 40) {
                 // Reset the player's location
-                this.y = 350 + PLAYER_HEIGHT;
-                this.x = 205;
+                this.y = this.startY + PLAYER_HEIGHT;
+                this.x = this.startX;
 
                 // Reset the location of each instance of Enemy
                 for (var indexCount = 0; indexCount < allEnemies.length; indexCount++) {
 
-                    allEnemies[indexCount].x = 0;
+                    allEnemies[indexCount].x = allEnemies[indexCount].startX;
+                    allEnemies[indexCount].y = allEnemies[indexCount].startY;
+                }
 
-
+                for (var indexCount = 0; indexCount < allStars.length; indexCount++) {
+                    allStars[indexCount].x = allStars[indexCount].startX;
+                    allStars[indexCount].y = allStars[indexCount].startY;
                 }
 
                 // Say something stupid.
@@ -199,7 +205,7 @@ Player.prototype.handleInput = function(allowedKeys) {
         case 'down':
             // Reset the player's location on the y-axis if moved
             // off the bottom of the canvas
-            if (this.y + PLAYER_HEIGHT > 500) {
+            if (this.y + PLAYER_HEIGHT > 450) {
                 break;
             }
             this.y = this.y + tileHeight;
@@ -238,8 +244,8 @@ Rock.prototype.collide = function() {
         this.x + ROCK_WIDTH > player.x &&
         this.y < player.y + PLAYER_HEIGHT &&
         ROCK_HEIGHT + this.y > player.y) {
-        player.x = 205;
-        player.y = 350;
+        player.x = player.startX;
+        player.y = player.startY;
     }
 };
 
