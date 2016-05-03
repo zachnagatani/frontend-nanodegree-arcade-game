@@ -1,18 +1,23 @@
-Arcade Game!
+# Frogger Clone Arcade Game
 
-<!-- Getting Started -->
+The Frogger Clone arcade game is a projected for Udacity's Front-End Nanodegree, used to showcase best practices in OOJS.
 
-To load the game, simply open index.html (or go to http://zachnagatani.github.io/frontend-nanodegree-arcade-game/).
+## Getting Started
 
-<!-- Gameplay -->
+To load the game, go to <a href="http://zachnagatani.github.io/frontend-nanodegree-arcade-game/">the Github Pages site</a> for the Frogger Clone.
 
-1. Use the arrow keys to navigate your character (the cat girl). Up will move you up, left will move you left, right will move you right, and down will move you... down!
+### Gameplay
 
-2. Avoid the bugs (if you touch them, she gets grossed out and teleports all the back to the beginning).
+- Use the arrow keys to navigate your character (the cat girl). Up will move you up, left will move you left, right will move you right, and down will move you... down!
 
-3. Avoid the rocks, too. They may not have hands, but they can be pushy.
+- Avoid the bugs (if you touch them, she gets grossed out and teleports all the way back to the beginning).
 
-4. Stars are friendly, though. I mean, in real life, if you touched a star, you'd be dead before you even had a chance to. But this isn't real life. So touch those stars, and make (fake)life a little easier on yourself.
+- Avoid the rocks, too. They may not have hands, but they can be pushy. (In other words, you'll get reset again).
 
-<!-- How to win -->
-Get to the water and you win! (Sorta? You'll see)...
+- Stars are friendly, though. I mean, in real life, if you touched a star, you'd be dead before you even had a chance to. But this isn't real life. So touch those stars, and make (fake) life a little easier on yourself.
+
+- Get to the water and you win! (Sorta? You'll see)...
+
+## Code Outline
+
+A super class of `Entity` was utilized to create subclasses of `Enemy`, `Player`, `Rock`, and `Star`. These classes contain all of the necessary functions and data to run the game!
